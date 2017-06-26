@@ -13,6 +13,11 @@
 		8453AB9E1F0123E40060AE16 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8453AB9C1F0123E40060AE16 /* Main.storyboard */; };
 		8453ABA01F0123E40060AE16 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8453AB9F1F0123E40060AE16 /* Assets.xcassets */; };
 		8453ABA31F0123E40060AE16 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8453ABA11F0123E40060AE16 /* LaunchScreen.storyboard */; };
+		848CB29B1F01838B002FD70A /* ImagesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848CB2991F01838B002FD70A /* ImagesCollectionViewCell.swift */; };
+		848CB29C1F01838B002FD70A /* ImagesCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 848CB29A1F01838B002FD70A /* ImagesCollectionViewCell.xib */; };
+		848CB29F1F018526002FD70A /* UIKit+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848CB29E1F018526002FD70A /* UIKit+Extensions.swift */; };
+		849091101F0130EA00F0BFAB /* NetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8490910F1F0130EA00F0BFAB /* NetworkingService.swift */; };
+		849091141F013D7D00F0BFAB /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849091131F013D7D00F0BFAB /* Images.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +29,11 @@
 		8453AB9F1F0123E40060AE16 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8453ABA21F0123E40060AE16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8453ABA41F0123E40060AE16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		848CB2991F01838B002FD70A /* ImagesCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImagesCollectionViewCell.swift; path = Cell/ImagesCollectionViewCell.swift; sourceTree = "<group>"; };
+		848CB29A1F01838B002FD70A /* ImagesCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ImagesCollectionViewCell.xib; path = Cell/ImagesCollectionViewCell.xib; sourceTree = "<group>"; };
+		848CB29E1F018526002FD70A /* UIKit+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIKit+Extensions.swift"; path = "Extensions/UIKit+Extensions.swift"; sourceTree = "<group>"; };
+		8490910F1F0130EA00F0BFAB /* NetworkingService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkingService.swift; path = Services/Networking/NetworkingService.swift; sourceTree = "<group>"; };
+		849091131F013D7D00F0BFAB /* Images.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Images.swift; path = Models/Images.swift; sourceTree = "<group>"; };
 		95BF88F56E0D542262C35607 /* Pods-GiphyApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GiphyApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GiphyApp/Pods-GiphyApp.debug.xcconfig"; sourceTree = "<group>"; };
 		E85A0A892F4E3969DDCE53C5 /* Pods-GiphyApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GiphyApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-GiphyApp/Pods-GiphyApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -71,6 +81,10 @@
 			isa = PBXGroup;
 			children = (
 				8453AB9A1F0123E40060AE16 /* ViewController.swift */,
+				848CB29D1F018396002FD70A /* Cell */,
+				849091111F013AC300F0BFAB /* Services */,
+				849091151F013D8000F0BFAB /* Models */,
+				848CB2A01F018553002FD70A /* Extensions */,
 				8453ABAB1F0128450060AE16 /* Storyboards */,
 				8453ABAA1F0128240060AE16 /* Supporting Files */,
 			);
@@ -94,6 +108,47 @@
 				8453ABA11F0123E40060AE16 /* LaunchScreen.storyboard */,
 			);
 			name = Storyboards;
+			sourceTree = "<group>";
+		};
+		848CB29D1F018396002FD70A /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				848CB2991F01838B002FD70A /* ImagesCollectionViewCell.swift */,
+				848CB29A1F01838B002FD70A /* ImagesCollectionViewCell.xib */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
+		848CB2A01F018553002FD70A /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				848CB29E1F018526002FD70A /* UIKit+Extensions.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		849091111F013AC300F0BFAB /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				849091121F013AD700F0BFAB /* Networking */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
+		849091121F013AD700F0BFAB /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				8490910F1F0130EA00F0BFAB /* NetworkingService.swift */,
+			);
+			name = Networking;
+			sourceTree = "<group>";
+		};
+		849091151F013D8000F0BFAB /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				849091131F013D7D00F0BFAB /* Images.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 		EE67FD6F0413854D932F3881 /* Frameworks */ = {
@@ -169,6 +224,7 @@
 			files = (
 				8453ABA31F0123E40060AE16 /* LaunchScreen.storyboard in Resources */,
 				8453ABA01F0123E40060AE16 /* Assets.xcassets in Resources */,
+				848CB29C1F01838B002FD70A /* ImagesCollectionViewCell.xib in Resources */,
 				8453AB9E1F0123E40060AE16 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -229,6 +285,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				8453AB9B1F0123E40060AE16 /* ViewController.swift in Sources */,
+				849091141F013D7D00F0BFAB /* Images.swift in Sources */,
+				848CB29F1F018526002FD70A /* UIKit+Extensions.swift in Sources */,
+				849091101F0130EA00F0BFAB /* NetworkingService.swift in Sources */,
+				848CB29B1F01838B002FD70A /* ImagesCollectionViewCell.swift in Sources */,
 				8453AB991F0123E40060AE16 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -399,6 +459,7 @@
 				8453ABA91F0123E40060AE16 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
