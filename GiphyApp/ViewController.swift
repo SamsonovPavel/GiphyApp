@@ -11,6 +11,8 @@ import RealmSwift
 
 class ViewController: UICollectionViewController {
     
+    @IBOutlet weak var searchTextLabel: UITextField!
+    
     let realm = try! Realm()
     lazy var images: Results<Images> = {
         return self.realm.objects(Images.self)
@@ -18,7 +20,10 @@ class ViewController: UICollectionViewController {
     
     var dataImages = [Images]()
     var isLoading = false
+    var loadStatus = true
     let service = NetworkingService()
+    var footer = FooterCollectionView()
+    var heightFooter: CGFloat = 0.0
     var limit = 20
     
     override func viewDidLoad() {
@@ -35,21 +40,101 @@ class ViewController: UICollectionViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    @IBAction func searchButton(_ sender: UIButton) {
+    }
 }
 
 //MARK: - Setup UI
-
 extension ViewController {
     func setupUI() {
         let cellNib = UINib(nibName: ImagesCollectionViewCell.reuseId, bundle: nil)
         collectionView?.register(cellNib, forCellWithReuseIdentifier: ImagesCollectionViewCell.reuseId)
+        
+        let footerNib = UINib(nibName: FooterCollectionView.reuseId, bundle: nil)
+        collectionView?.register(footerNib, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter,
+                                 withReuseIdentifier: FooterCollectionView.reuseId)
+        
+        searchTextLabel.delegate = self
+    }
+}
+
+//MARK: - UITextFieldDelegate
+extension ViewController: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        guard let text = textField.text else { return }
+        print(text)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if searchTextLabel.isFirstResponder {
+            searchTextLabel.resignFirstResponder()
+        }
+        isLoading = !isLoading
+        guard let search = searchTextLabel.text, !search.isEmpty else { return true }
+        loadSearchImages(search: search, limit: limit, offset: 0)
+        return true
+    }
+}
+
+//MARK: - Actions
+extension ViewController {
+    func loadSearchImages(search: String, limit: Int, offset: Int) {
+        if isLoading {
+            dataImages.removeAll()
+            isLoading = false
+            heightFooter = 70.0
+        }
+        service.searchImages(q: search, limit: limit, offset: offset) { [weak self] (data) in
+            guard let sself = self else { return }
+            guard let image = data else { return }
+            
+            if sself.dataImages.count < limit {
+                sself.dataImages.append(contentsOf: image)
+                sself.collectionView?.contentOffset = CGPoint(x: 0.0, y: -64.0)
+                sself.collectionView?.reloadData()
+            } else {
+                var paths = [IndexPath]()
+                
+                image.forEach({ (image) in
+                    sself.dataImages.append(image)
+                    paths.append(IndexPath.init(item: sself.dataImages.endIndex - 1, section: 0))
+                })
+                DispatchQueue.main.async {
+                    sself.collectionView?.insertItems(at: paths)
+                }
+            }
+        }
+    }
+    
+    func load() {
+        let offset = collectionView?.numberOfItems(inSection: 0)
+        guard let text = searchTextLabel.text, !text.isEmpty else { return }
+        loadSearchImages(search: text, limit: limit, offset: offset!)
+    }
+}
+
+//MARK: - Pagination for images
+extension ViewController {
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard let collectionView = collectionView else { return }
+        let offset = scrollView.contentOffset.y
+        let height = scrollView.contentSize.height < collectionView.frame.size.height ?
+                                                     collectionView.frame.size.height :
+                                                     scrollView.contentSize.height
+        
+        let max = height - collectionView.frame.size.height
+        loadStatus = offset < max ? false : loadStatus
+
+        if offset > max && !loadStatus {
+            loadStatus = true
+            load()
+        }
     }
 }
 
 //MARK: - Networking
-
 extension ViewController {
-    
     func saveData(data: [Object]) {
         try! realm.write {
             realm.add(data, update: true)
@@ -57,20 +142,26 @@ extension ViewController {
     }
     
     func loadData(limit: Int) {
-        guard !isLoading else { return }
-        isLoading = true
-        service.getImages(limit) { (data) in
-            self.isLoading = false
+        service.getImages(limit) { [weak self] (data) in
+            guard let sself = self else { return }
             guard let image = data else { return }
-            self.dataImages.append(contentsOf: image)
-            self.saveData(data: image)
-            self.collectionView?.reloadData()
+            sself.dataImages.append(contentsOf: image)
+//            self.saveData(data: image)
+            sself.collectionView?.reloadData()
+        }
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+extension ViewController {
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if searchTextLabel.isFirstResponder {
+            searchTextLabel.resignFirstResponder()
         }
     }
 }
 
 // MARK: - UICollectionViewDataSource
-
 extension ViewController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dataImages.count
@@ -85,7 +176,6 @@ extension ViewController {
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
-
 fileprivate let inset: CGFloat = 1.0
 
 extension ViewController: UICollectionViewDelegateFlowLayout {
@@ -103,6 +193,20 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return inset
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        return CGSize(width: collectionView.frame.width,
+                      height: collectionView.frame.height - (collectionView.frame.height - heightFooter))
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if kind == UICollectionElementKindSectionFooter {
+            footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                                                                     withReuseIdentifier: FooterCollectionView.reuseId,
+                                                                     for: indexPath) as! FooterCollectionView
+        }
+        return footer
     }
 }
 

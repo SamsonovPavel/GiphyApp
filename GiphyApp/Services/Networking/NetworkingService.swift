@@ -18,7 +18,6 @@ class NetworkingService {
     let networkingManager = Alamofire.SessionManager()
     
     func getImages(_ limit: Int, completion: @escaping ([Images]?) -> Void) {
-        
         let url = URL(string: baseUrl + "gifs/trending?api_key=" + apiKey)
         let parameters = ["limit" : limit, "rating" : "G"] as [String : Any]
         
@@ -33,4 +32,29 @@ class NetworkingService {
                 completion(result)
         }
     }
+    
+    func searchImages(q: String, limit: Int, offset: Int, completion: @escaping ([Images]?) -> Void) {
+        let url = URL(string: baseUrl + "gifs/search?api_key=" + apiKey)
+        let parameters = ["q"      : q,
+                          "limit"  : limit,
+                          "offset" : offset,
+                          "rating" : "G",
+                          "lang"   : "ru"] as [String : Any]
+        
+        networkingManager.request(url!, parameters: parameters)
+            .responseJSON() { response in
+                guard response.result.isSuccess else {
+                    completion(nil)
+                    return
+                }
+                let json = JSON(response.result.value as Any)["data"]
+                let result = json.map({ Images(json: $0.1) })
+                completion(result)
+        }
+    }
 }
+
+
+
+
+

@@ -17,7 +17,7 @@ class Images: Object {
     convenience init(json: JSON) {
         self.init()
         id = json["id"].stringValue
-        url = json["images"]["original"]["url"].stringValue
+        url = json["images"]["fixed_width"]["url"].stringValue
     }
     
     override class func primaryKey() -> String? {

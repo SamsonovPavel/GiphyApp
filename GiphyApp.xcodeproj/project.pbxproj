@@ -18,6 +18,8 @@
 		848CB29F1F018526002FD70A /* UIKit+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848CB29E1F018526002FD70A /* UIKit+Extensions.swift */; };
 		849091101F0130EA00F0BFAB /* NetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8490910F1F0130EA00F0BFAB /* NetworkingService.swift */; };
 		849091141F013D7D00F0BFAB /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849091131F013D7D00F0BFAB /* Images.swift */; };
+		84C4A1D21F05561A000622D8 /* FooterCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C4A1D01F05561A000622D8 /* FooterCollectionView.swift */; };
+		84C4A1D31F05561A000622D8 /* FooterCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84C4A1D11F05561A000622D8 /* FooterCollectionView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		848CB29E1F018526002FD70A /* UIKit+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIKit+Extensions.swift"; path = "Extensions/UIKit+Extensions.swift"; sourceTree = "<group>"; };
 		8490910F1F0130EA00F0BFAB /* NetworkingService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkingService.swift; path = Services/Networking/NetworkingService.swift; sourceTree = "<group>"; };
 		849091131F013D7D00F0BFAB /* Images.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Images.swift; path = Models/Images.swift; sourceTree = "<group>"; };
+		84C4A1D01F05561A000622D8 /* FooterCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FooterCollectionView.swift; path = Cell/FooterCollectionView.swift; sourceTree = "<group>"; };
+		84C4A1D11F05561A000622D8 /* FooterCollectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FooterCollectionView.xib; path = Cell/FooterCollectionView.xib; sourceTree = "<group>"; };
 		95BF88F56E0D542262C35607 /* Pods-GiphyApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GiphyApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GiphyApp/Pods-GiphyApp.debug.xcconfig"; sourceTree = "<group>"; };
 		E85A0A892F4E3969DDCE53C5 /* Pods-GiphyApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GiphyApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-GiphyApp/Pods-GiphyApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -115,6 +119,8 @@
 			children = (
 				848CB2991F01838B002FD70A /* ImagesCollectionViewCell.swift */,
 				848CB29A1F01838B002FD70A /* ImagesCollectionViewCell.xib */,
+				84C4A1D01F05561A000622D8 /* FooterCollectionView.swift */,
+				84C4A1D11F05561A000622D8 /* FooterCollectionView.xib */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -222,6 +228,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84C4A1D31F05561A000622D8 /* FooterCollectionView.xib in Resources */,
 				8453ABA31F0123E40060AE16 /* LaunchScreen.storyboard in Resources */,
 				8453ABA01F0123E40060AE16 /* Assets.xcassets in Resources */,
 				848CB29C1F01838B002FD70A /* ImagesCollectionViewCell.xib in Resources */,
@@ -286,6 +293,7 @@
 			files = (
 				8453AB9B1F0123E40060AE16 /* ViewController.swift in Sources */,
 				849091141F013D7D00F0BFAB /* Images.swift in Sources */,
+				84C4A1D21F05561A000622D8 /* FooterCollectionView.swift in Sources */,
 				848CB29F1F018526002FD70A /* UIKit+Extensions.swift in Sources */,
 				849091101F0130EA00F0BFAB /* NetworkingService.swift in Sources */,
 				848CB29B1F01838B002FD70A /* ImagesCollectionViewCell.swift in Sources */,

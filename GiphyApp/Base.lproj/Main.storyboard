@@ -38,11 +38,37 @@
                             <outlet property="delegate" destination="5L5-xL-ccj" id="HrY-GD-AuO"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" id="dK4-Px-lra"/>
+                    <navigationItem key="navigationItem" id="dK4-Px-lra">
+                        <nil key="title"/>
+                        <textField key="titleView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search for gifs..." textAlignment="natural" minimumFontSize="17" id="CCD-pL-MQC">
+                            <rect key="frame" x="73" y="7" width="220" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" autocorrectionType="yes" returnKeyType="search"/>
+                            <connections>
+                                <outlet property="delegate" destination="5L5-xL-ccj" id="wdP-Cs-Rlo"/>
+                            </connections>
+                        </textField>
+                        <barButtonItem key="rightBarButtonItem" id="Bsw-9R-LxW">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="BpJ-1F-mwY">
+                                <rect key="frame" x="299" y="7" width="60" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                <state key="normal" title="Search"/>
+                                <connections>
+                                    <action selector="searchButton:" destination="5L5-xL-ccj" eventType="touchUpInside" id="AAw-Nv-P98"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="searchTextLabel" destination="CCD-pL-MQC" id="xuL-uK-foR"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bHd-bt-eN1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="366" y="127"/>
+            <point key="canvasLocation" x="399" y="126"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="VIa-sE-j6C">
