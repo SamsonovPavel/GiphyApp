@@ -22,6 +22,7 @@ class ViewController: UICollectionViewController {
     var isLoading = false
     var loadStatus = true
     let service = NetworkingService()
+    var refreshControl: UIRefreshControl!
     var footer = FooterCollectionView()
     var heightFooter: CGFloat = 0.0
     var limit = 20
@@ -55,17 +56,17 @@ extension ViewController {
         collectionView?.register(footerNib, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter,
                                  withReuseIdentifier: FooterCollectionView.reuseId)
         
+        refreshControl = UIRefreshControl()
+        refreshControl.attributedTitle = NSAttributedString(string: "Загрузка...")
+        refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: UIControlEvents.valueChanged)
+        collectionView?.addSubview(refreshControl)
+        
         searchTextLabel.delegate = self
     }
 }
 
 //MARK: - UITextFieldDelegate
 extension ViewController: UITextFieldDelegate {
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        guard let text = textField.text else { return }
-        print(text)
-    }
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if searchTextLabel.isFirstResponder {
             searchTextLabel.resignFirstResponder()
@@ -73,6 +74,7 @@ extension ViewController: UITextFieldDelegate {
         isLoading = !isLoading
         guard let search = searchTextLabel.text, !search.isEmpty else { return true }
         loadSearchImages(search: search, limit: limit, offset: 0)
+        
         return true
     }
 }
@@ -104,6 +106,11 @@ extension ViewController {
                     sself.collectionView?.insertItems(at: paths)
                 }
             }
+            DispatchQueue.main.async {
+                if sself.refreshControl.isRefreshing {
+                    sself.refreshControl.endRefreshing()
+                }
+            }
         }
     }
     
@@ -111,6 +118,14 @@ extension ViewController {
         let offset = collectionView?.numberOfItems(inSection: 0)
         guard let text = searchTextLabel.text, !text.isEmpty else { return }
         loadSearchImages(search: text, limit: limit, offset: offset!)
+    }
+    
+    @objc fileprivate func refresh(sender:AnyObject) {
+        if (searchTextLabel.text?.isEmpty)! {
+            loadData(limit: limit)
+        } else {
+            load()
+        }
     }
 }
 
@@ -145,9 +160,19 @@ extension ViewController {
         service.getImages(limit) { [weak self] (data) in
             guard let sself = self else { return }
             guard let image = data else { return }
+            
+            if sself.dataImages.count > 0 {
+                sself.dataImages.removeAll()
+            }
             sself.dataImages.append(contentsOf: image)
 //            self.saveData(data: image)
             sself.collectionView?.reloadData()
+           
+            DispatchQueue.main.async {
+                if sself.refreshControl.isRefreshing {
+                    sself.refreshControl.endRefreshing()
+                }
+            }
         }
     }
 }
@@ -209,23 +234,5 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
         return footer
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
