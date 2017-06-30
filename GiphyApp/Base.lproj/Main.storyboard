@@ -40,7 +40,7 @@
                     </collectionView>
                     <navigationItem key="navigationItem" id="dK4-Px-lra">
                         <nil key="title"/>
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="42Z-Ga-gSz">
+                        <barButtonItem key="leftBarButtonItem" id="42Z-Ga-gSz">
                             <view key="customView" contentMode="scaleToFill" id="Pq0-4h-5Us">
                                 <rect key="frame" x="16" y="7" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
