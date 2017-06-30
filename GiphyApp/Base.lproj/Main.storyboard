@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Search View Controller-->
         <scene sceneID="ohI-4o-ebI">
             <objects>
-                <collectionViewController id="5L5-xL-ccj" customClass="ViewController" customModule="GiphyApp" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController id="5L5-xL-ccj" customClass="SearchViewController" customModule="GiphyApp" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="dCJ-6q-fXD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -40,8 +40,29 @@
                     </collectionView>
                     <navigationItem key="navigationItem" id="dK4-Px-lra">
                         <nil key="title"/>
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="42Z-Ga-gSz">
+                            <view key="customView" contentMode="scaleToFill" id="Pq0-4h-5Us">
+                                <rect key="frame" x="16" y="7" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Сеть" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbS-zZ-rzU">
+                                        <rect key="frame" x="3" y="1" width="24" height="7"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="8"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1TV-A0-RCp">
+                                        <rect key="frame" x="7" y="11" width="16" height="16"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                        </barButtonItem>
                         <textField key="titleView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search for gifs..." textAlignment="natural" minimumFontSize="17" id="CCD-pL-MQC">
-                            <rect key="frame" x="73" y="7" width="220" height="30"/>
+                            <rect key="frame" x="53" y="7" width="240" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
@@ -63,12 +84,65 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="connectIndicator" destination="1TV-A0-RCp" id="Qtc-jT-2ct"/>
                         <outlet property="searchTextLabel" destination="CCD-pL-MQC" id="xuL-uK-foR"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bHd-bt-eN1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="399" y="126"/>
+            <point key="canvasLocation" x="397.60000000000002" y="125.4872563718141"/>
+        </scene>
+        <!--Image View Controller-->
+        <scene sceneID="kXW-Mm-hUB">
+            <objects>
+                <viewController storyboardIdentifier="ImageViewController" id="zM3-d4-mEQ" customClass="ImageViewController" customModule="GiphyApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="UTh-xj-GOd"/>
+                        <viewControllerLayoutGuide type="bottom" id="oXP-Dx-bgy"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="wST-oo-vOm">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="01l-sj-h8j">
+                                <rect key="frame" x="37" y="134" width="300" height="300"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="b3Q-1Q-sbf"/>
+                                    <constraint firstAttribute="width" constant="300" id="cQe-xy-krS"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="acF-cS-IWc">
+                                <rect key="frame" x="115" y="478" width="144" height="45"/>
+                                <color key="backgroundColor" red="0.20784313730000001" green="0.4941176471" blue="0.61568627450000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="qCO-v3-pMM"/>
+                                    <constraint firstAttribute="width" constant="144" id="wrR-gY-MRz"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="OK">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="okButton:" destination="zM3-d4-mEQ" eventType="touchUpInside" id="jqp-0m-TYj"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="01l-sj-h8j" firstAttribute="centerY" secondItem="wST-oo-vOm" secondAttribute="centerY" constant="-49.5" id="ceB-8z-GsC"/>
+                            <constraint firstItem="acF-cS-IWc" firstAttribute="top" secondItem="01l-sj-h8j" secondAttribute="bottom" constant="44" id="hfD-H3-sTi"/>
+                            <constraint firstItem="01l-sj-h8j" firstAttribute="centerX" secondItem="wST-oo-vOm" secondAttribute="centerX" id="hp1-FS-MUm"/>
+                            <constraint firstItem="acF-cS-IWc" firstAttribute="centerX" secondItem="01l-sj-h8j" secondAttribute="centerX" id="nXo-8d-BNU"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="image" destination="01l-sj-h8j" id="xkK-c8-qNp"/>
+                        <outlet property="ok" destination="acF-cS-IWc" id="7bg-SO-kTN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6zd-Lg-dbf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1157.5999999999999" y="124.58770614692655"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="VIa-sE-j6C">

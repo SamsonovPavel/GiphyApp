@@ -8,8 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		2CBEEE80C9E5142BC94BCB8E /* Pods_GiphyApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AC134D295C5AE83BE2C5F97 /* Pods_GiphyApp.framework */; };
+		840F56701F06602F004FC8A7 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840F566F1F06602F004FC8A7 /* ActivityIndicator.swift */; };
+		840F56721F06A700004FC8A7 /* ReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840F56711F06A700004FC8A7 /* ReachabilityManager.swift */; };
 		8453AB991F0123E40060AE16 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8453AB981F0123E40060AE16 /* AppDelegate.swift */; };
-		8453AB9B1F0123E40060AE16 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8453AB9A1F0123E40060AE16 /* ViewController.swift */; };
+		8453AB9B1F0123E40060AE16 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8453AB9A1F0123E40060AE16 /* SearchViewController.swift */; };
 		8453AB9E1F0123E40060AE16 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8453AB9C1F0123E40060AE16 /* Main.storyboard */; };
 		8453ABA01F0123E40060AE16 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8453AB9F1F0123E40060AE16 /* Assets.xcassets */; };
 		8453ABA31F0123E40060AE16 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8453ABA11F0123E40060AE16 /* LaunchScreen.storyboard */; };
@@ -20,13 +22,16 @@
 		849091141F013D7D00F0BFAB /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849091131F013D7D00F0BFAB /* Images.swift */; };
 		84C4A1D21F05561A000622D8 /* FooterCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C4A1D01F05561A000622D8 /* FooterCollectionView.swift */; };
 		84C4A1D31F05561A000622D8 /* FooterCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84C4A1D11F05561A000622D8 /* FooterCollectionView.xib */; };
+		84C4A1D51F059D86000622D8 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C4A1D41F059D86000622D8 /* ImageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3AC134D295C5AE83BE2C5F97 /* Pods_GiphyApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GiphyApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		840F566F1F06602F004FC8A7 /* ActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ActivityIndicator.swift; path = Extensions/ActivityIndicator.swift; sourceTree = "<group>"; };
+		840F56711F06A700004FC8A7 /* ReachabilityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReachabilityManager.swift; path = Extensions/ReachabilityManager.swift; sourceTree = "<group>"; };
 		8453AB951F0123E30060AE16 /* GiphyApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GiphyApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8453AB981F0123E40060AE16 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8453AB9A1F0123E40060AE16 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		8453AB9A1F0123E40060AE16 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		8453AB9D1F0123E40060AE16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8453AB9F1F0123E40060AE16 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8453ABA21F0123E40060AE16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -38,6 +43,7 @@
 		849091131F013D7D00F0BFAB /* Images.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Images.swift; path = Models/Images.swift; sourceTree = "<group>"; };
 		84C4A1D01F05561A000622D8 /* FooterCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FooterCollectionView.swift; path = Cell/FooterCollectionView.swift; sourceTree = "<group>"; };
 		84C4A1D11F05561A000622D8 /* FooterCollectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FooterCollectionView.xib; path = Cell/FooterCollectionView.xib; sourceTree = "<group>"; };
+		84C4A1D41F059D86000622D8 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		95BF88F56E0D542262C35607 /* Pods-GiphyApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GiphyApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GiphyApp/Pods-GiphyApp.debug.xcconfig"; sourceTree = "<group>"; };
 		E85A0A892F4E3969DDCE53C5 /* Pods-GiphyApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GiphyApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-GiphyApp/Pods-GiphyApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -63,6 +69,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		840F56731F06A9B5004FC8A7 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				8453AB9A1F0123E40060AE16 /* SearchViewController.swift */,
+				84C4A1D41F059D86000622D8 /* ImageViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
 		8453AB8C1F0123E30060AE16 = {
 			isa = PBXGroup;
 			children = (
@@ -84,7 +99,7 @@
 		8453AB971F0123E40060AE16 /* GiphyApp */ = {
 			isa = PBXGroup;
 			children = (
-				8453AB9A1F0123E40060AE16 /* ViewController.swift */,
+				840F56731F06A9B5004FC8A7 /* Controllers */,
 				848CB29D1F018396002FD70A /* Cell */,
 				849091111F013AC300F0BFAB /* Services */,
 				849091151F013D8000F0BFAB /* Models */,
@@ -129,6 +144,8 @@
 			isa = PBXGroup;
 			children = (
 				848CB29E1F018526002FD70A /* UIKit+Extensions.swift */,
+				840F566F1F06602F004FC8A7 /* ActivityIndicator.swift */,
+				840F56711F06A700004FC8A7 /* ReachabilityManager.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -291,12 +308,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8453AB9B1F0123E40060AE16 /* ViewController.swift in Sources */,
+				8453AB9B1F0123E40060AE16 /* SearchViewController.swift in Sources */,
 				849091141F013D7D00F0BFAB /* Images.swift in Sources */,
 				84C4A1D21F05561A000622D8 /* FooterCollectionView.swift in Sources */,
 				848CB29F1F018526002FD70A /* UIKit+Extensions.swift in Sources */,
+				840F56721F06A700004FC8A7 /* ReachabilityManager.swift in Sources */,
 				849091101F0130EA00F0BFAB /* NetworkingService.swift in Sources */,
 				848CB29B1F01838B002FD70A /* ImagesCollectionViewCell.swift in Sources */,
+				84C4A1D51F059D86000622D8 /* ImageViewController.swift in Sources */,
+				840F56701F06602F004FC8A7 /* ActivityIndicator.swift in Sources */,
 				8453AB991F0123E40060AE16 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

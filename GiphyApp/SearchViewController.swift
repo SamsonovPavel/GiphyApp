@@ -9,9 +9,10 @@
 import UIKit
 import RealmSwift
 
-class ViewController: UICollectionViewController {
+class SearchViewController: UICollectionViewController {
     
     @IBOutlet weak var searchTextLabel: UITextField!
+    @IBOutlet weak var connectIndicator: UIImageView!
     
     let realm = try! Realm()
     lazy var images: Results<Images> = {
@@ -24,17 +25,16 @@ class ViewController: UICollectionViewController {
     let service = NetworkingService()
     var refreshControl: UIRefreshControl!
     var footer = FooterCollectionView()
+    let indicator = ActivityIndicator()
     var heightFooter: CGFloat = 0.0
     var limit = 20
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        loadData(limit: limit)
+        if loadStatus {
+            loadData(limit: limit)
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -42,12 +42,17 @@ class ViewController: UICollectionViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     @IBAction func searchButton(_ sender: UIButton) {
+        search()
     }
 }
 
 //MARK: - Setup UI
-extension ViewController {
+extension SearchViewController {
     func setupUI() {
         let cellNib = UINib(nibName: ImagesCollectionViewCell.reuseId, bundle: nil)
         collectionView?.register(cellNib, forCellWithReuseIdentifier: ImagesCollectionViewCell.reuseId)
@@ -61,26 +66,25 @@ extension ViewController {
         refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: UIControlEvents.valueChanged)
         collectionView?.addSubview(refreshControl)
         
+        connectIndicator.layer.borderColor   = UIColor.darkGray.cgColor
+        connectIndicator.layer.cornerRadius  = connectIndicator.bounds.width / 2.0
+        connectIndicator.layer.masksToBounds = true
+        
         searchTextLabel.delegate = self
+        notification()
     }
 }
 
 //MARK: - UITextFieldDelegate
-extension ViewController: UITextFieldDelegate {
+extension SearchViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if searchTextLabel.isFirstResponder {
-            searchTextLabel.resignFirstResponder()
-        }
-        isLoading = !isLoading
-        guard let search = searchTextLabel.text, !search.isEmpty else { return true }
-        loadSearchImages(search: search, limit: limit, offset: 0)
-        
+        search()
         return true
     }
 }
 
 //MARK: - Actions
-extension ViewController {
+extension SearchViewController {
     func loadSearchImages(search: String, limit: Int, offset: Int) {
         if isLoading {
             dataImages.removeAll()
@@ -106,10 +110,23 @@ extension ViewController {
                     sself.collectionView?.insertItems(at: paths)
                 }
             }
-            DispatchQueue.main.async {
-                if sself.refreshControl.isRefreshing {
-                    sself.refreshControl.endRefreshing()
-                }
+            sself.refreshStatus()
+        }
+    }
+    
+    func search() {
+        if searchTextLabel.isFirstResponder {
+            searchTextLabel.resignFirstResponder()
+        }
+        isLoading = !isLoading
+        guard let search = searchTextLabel.text, !search.isEmpty else { return }
+        loadSearchImages(search: search, limit: limit, offset: 0)
+    }
+    
+    func refreshStatus() {
+        DispatchQueue.main.async {
+            if self.refreshControl.isRefreshing {
+                self.refreshControl.endRefreshing()
             }
         }
     }
@@ -117,6 +134,7 @@ extension ViewController {
     func load() {
         let offset = collectionView?.numberOfItems(inSection: 0)
         guard let text = searchTextLabel.text, !text.isEmpty else { return }
+        URLCache.shared.removeAllCachedResponses()
         loadSearchImages(search: text, limit: limit, offset: offset!)
     }
     
@@ -129,8 +147,35 @@ extension ViewController {
     }
 }
 
+// MARK: Notification
+extension SearchViewController {
+    func notification() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(connectReachable),
+                                               name: listenerReachableNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(connectNotReachable),
+                                               name: listenerNotReachableNotification,
+                                               object: nil)
+    }
+    
+    func connectReachable() {
+        connectIndicator.backgroundColor = .green
+        if loadStatus {
+            if dataImages.count < limit {
+                loadData(limit: limit)
+            }
+        }
+    }
+    
+    func connectNotReachable() {
+        connectIndicator.backgroundColor = .red
+    }
+}
+
 //MARK: - Pagination for images
-extension ViewController {
+extension SearchViewController {
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard let collectionView = collectionView else { return }
         let offset = scrollView.contentOffset.y
@@ -149,7 +194,7 @@ extension ViewController {
 }
 
 //MARK: - Networking
-extension ViewController {
+extension SearchViewController {
     func saveData(data: [Object]) {
         try! realm.write {
             realm.add(data, update: true)
@@ -157,6 +202,7 @@ extension ViewController {
     }
     
     func loadData(limit: Int) {
+        indicator.showActivityIndicator(collectionView!)
         service.getImages(limit) { [weak self] (data) in
             guard let sself = self else { return }
             guard let image = data else { return }
@@ -164,30 +210,31 @@ extension ViewController {
             if sself.dataImages.count > 0 {
                 sself.dataImages.removeAll()
             }
+            sself.indicator.hideProgressView()
             sself.dataImages.append(contentsOf: image)
 //            self.saveData(data: image)
+            sself.heightFooter = 0.0
             sself.collectionView?.reloadData()
-           
-            DispatchQueue.main.async {
-                if sself.refreshControl.isRefreshing {
-                    sself.refreshControl.endRefreshing()
-                }
-            }
+            sself.refreshStatus()
         }
     }
 }
 
 // MARK: - UICollectionViewDelegate
-extension ViewController {
+extension SearchViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if searchTextLabel.isFirstResponder {
             searchTextLabel.resignFirstResponder()
         }
+        
+        let url = dataImages[indexPath.row].original
+        let imageVC = ImageViewController.instantiate(url: url)
+        present(imageVC, animated: true, completion: nil)
     }
 }
 
 // MARK: - UICollectionViewDataSource
-extension ViewController {
+extension SearchViewController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dataImages.count
     }
@@ -203,7 +250,7 @@ extension ViewController {
 // MARK: - UICollectionViewDelegateFlowLayout
 fileprivate let inset: CGFloat = 1.0
 
-extension ViewController: UICollectionViewDelegateFlowLayout {
+extension SearchViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let widthPerItem = (view.frame.width / 2.0) - 1.5

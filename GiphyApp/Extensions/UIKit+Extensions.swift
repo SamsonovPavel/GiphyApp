@@ -13,3 +13,9 @@ extension UIView {
         return String(describing: self)
     }
 }
+
+extension UIViewController {
+    static var storyboardId: String {
+        return String(describing: self)
+    }
+}

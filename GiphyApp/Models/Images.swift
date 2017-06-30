@@ -13,11 +13,13 @@ import RealmSwift
 class Images: Object {
     dynamic var id = ""
     dynamic var url = ""
+    dynamic var original = ""
     
     convenience init(json: JSON) {
         self.init()
         id = json["id"].stringValue
         url = json["images"]["fixed_width"]["url"].stringValue
+        original = json["images"]["original"]["url"].stringValue
     }
     
     override class func primaryKey() -> String? {

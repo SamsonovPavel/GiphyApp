@@ -15,7 +15,11 @@ class NetworkingService {
     let baseUrl = "https://api.giphy.com/v1/"
     let apiKey = "b56b49fa20b045d0aa9a3b1c24825e12"
     
-    let networkingManager = Alamofire.SessionManager()
+    let networkingManager: Alamofire.SessionManager
+    
+    init() {
+        networkingManager = Alamofire.SessionManager(configuration: URLSessionConfiguration.default)
+    }
     
     func getImages(_ limit: Int, completion: @escaping ([Images]?) -> Void) {
         let url = URL(string: baseUrl + "gifs/trending?api_key=" + apiKey)
